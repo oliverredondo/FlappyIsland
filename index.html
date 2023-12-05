@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Flappy Bird</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <!-- Audio -->
+    <audio id="collisionSound">
+      <source
+        src="./audio/mixkit-funny-fail-low-tone-2876.wav"
+        type="audio/mp3"
+      />
+      Your browser does not support the audio tag.
+    </audio>
+    <audio id="spacebarSound">
+      <source src="./audio/mixkit-game-ball-tap-2073.wav" type="audio/mp3" />
+      Your browser does not support the audio tag.
+    </audio>
+    <!-- The game -->
+    <div class="container">
+      <div class="game">
+        <div class="sky-moving">
+          <div id="bird" class="bird"></div>
+        </div>
+
+        <div class="ground-container">
+          <div class="ground-moving"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js" charset="utf-8"></script>
+  </body>
+</html>

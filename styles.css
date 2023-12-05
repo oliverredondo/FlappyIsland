@@ -1,0 +1,242 @@
+body {
+  display: flex;
+  margin: 0;
+}
+
+.container {
+  display: block;
+  width: 1024px;
+  height: 768px;
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+.game {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Background - SKY */
+
+.sky {
+  background-image: url("./images/Day\ Sky.png");
+  width: 100%;
+  height: 640px;
+  position: absolute;
+  background-repeat: repeat;
+  background-position: 0%;
+  background-size: cover;
+}
+
+.sky-moving {
+  background-image: url("./images/Day\ Sky.png");
+  width: 100%;
+  height: 640px;
+  position: absolute;
+  animation: slideleft 1500s infinite linear;
+  -webkit-animation: slideleft 1500s infinite linear;
+  background-size: cover;
+  /* width: 100%; */
+}
+
+/* Background - GROUND */
+
+.ground-container {
+  width: 100%;
+  height: 150px;
+  position: absolute;
+  bottom: 0;
+}
+
+.ground {
+  background-image: url("./images/bottom-background.png");
+  width: 100%;
+  height: 150px;
+  position: absolute;
+  z-index: 1;
+}
+
+.ground-moving {
+  width: 100%;
+  height: 150px;
+  position: absolute;
+  bottom: 0;
+  background-image: url("./images/bottom-background.png");
+  background-repeat: repeat-x;
+  animation: slideright 800s infinite linear;
+  -webkit-animation: slideright 800s infinite linear;
+  z-index: +1;
+}
+
+/* Player avatars */
+
+.bird {
+  background-image: url("./images/bird1.png");
+  position: absolute;
+  width: 60px;
+  height: 45px;
+  left: 220px;
+  bottom: 100px;
+}
+
+.birdHassan {
+  background-image: url("./images/bird2.png");
+  position: absolute;
+  width: 60px;
+  height: 62px;
+  left: 220px;
+  bottom: 100px;
+}
+
+.birdPetra {
+  background-image: url("./images/bird3.png");
+  position: absolute;
+  width: 60px;
+  height: 45px;
+  left: 220px;
+  bottom: 100px;
+}
+
+/* OBSTACLES */
+
+/* Fork and knife */
+
+.obstacleFork {
+  background-image: url("./images/flappybird-fork.png");
+  width: 60px;
+  height: 300px;
+  position: absolute;
+}
+
+.topObstacleFork {
+  background-image: url("./images/flappybird-fork.png");
+  transform: rotate(180deg);
+  width: 60px;
+  height: 300px;
+  position: absolute;
+}
+
+.obstacleKnife {
+  background-image: url("./images/flappybird-knife.png");
+  width: 60px;
+  height: 300px;
+  position: absolute;
+}
+
+.topObstacleKnife {
+  background-image: url("./images/flappybird-knife.png");
+  transform: rotate(180deg);
+  width: 60px;
+  height: 300px;
+  position: absolute;
+}
+
+/* People */
+
+.obstacleCoffee {
+  background-image: url("./images/coffee.png");
+  width: 163px;
+  height: 300px;
+  position: absolute;
+}
+
+.obstacleKhadija {
+  background-image: url("./images/khadija.png");
+  width: 200px;
+  height: 300px;
+  position: absolute;
+}
+
+.obstacleEskilCool {
+  background-image: url("./images/eskilCool.png");
+  width: 190px;
+  height: 300px;
+  position: absolute;
+}
+
+.obstacleSmoke {
+  background-image: url("./images/smoke.png");
+  width: 122px;
+  height: 300px;
+  position: absolute;
+}
+
+/* Pipes */
+
+.obstaclePipe {
+  background-image: url("./images/flappybird-pipe.png");
+  width: 60px;
+  height: 300px;
+  position: absolute;
+}
+
+.topObstaclePipe {
+  background-image: url("./images/flappybird-pipe.png");
+  transform: rotate(180deg);
+  width: 60px;
+  height: 300px;
+  position: absolute;
+}
+
+/* Salmon */
+
+.obstacleSalmon {
+  background-image: url("./images/salmon.png");
+  width: 60px;
+  height: 300px;
+  position: absolute;
+  background-repeat: no-repeat;
+}
+
+.topObstacleSalmon {
+  background-image: url("./images/salmon.png");
+  transform: rotate(180deg);
+  width: 60px;
+  height: 300px;
+  position: absolute;
+  background-repeat: no-repeat;
+}
+
+/* Make it move to the right */
+
+@keyframes slideright {
+  from {
+    background-position: 10000%;
+  }
+  to {
+    background-position: 0%;
+  }
+}
+
+@-webkit-keyframes slideright {
+  from {
+    background-position: 10000%;
+  }
+  to {
+    background-position: 0%;
+  }
+}
+
+/* Make it move to the left */
+
+@keyframes slideleft {
+  from {
+    background-position: 0%;
+  }
+  to {
+    background-position: 10000%;
+  }
+}
+
+@-webkit-keyframes slideleft {
+  from {
+    background-position: 0%;
+  }
+  to {
+    background-position: 10000%;
+  }
+}
