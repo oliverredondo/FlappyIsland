@@ -50,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let isGameOver = false;
   let gap = 475;
   let lives = 3;
-  let gameTimerIdPetra;
 
   function updateLivesDisplay() {
     document.getElementById("lives").innerText = "LIVES: " + lives;
