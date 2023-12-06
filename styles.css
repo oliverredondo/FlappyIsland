@@ -1,6 +1,9 @@
+@import url(https://fonts.googleapis.com/css?family=Silkscreen:regular,700);
 body {
   display: flex;
   margin: 0;
+  font-family: Silkscreen, Arial, Helvetica, sans-serif;
+  background-color: #fb8a28;
 }
 
 .container {
@@ -239,4 +242,40 @@ body {
   to {
     background-position: 10000%;
   }
+}
+/*  Lives  */
+
+#lives {
+  position: absolute;
+  top: 800px;
+  left: 200px;
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+}
+
+/*  Game over popup  */
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #fff;
+  border: 2px solid #000;
+  z-index: 999;
+}
+
+.restart-button {
+  display: block;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #4caf50;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
 }
