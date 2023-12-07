@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Generating new obstacles
 
   function generateObstacle() {
-    let obstacleLeft = 1024;
+    let obstacleLeft = 1200;
     let randomHeight = Math.random() * 150;
     let obstacleBottom = randomHeight;
     const obstacle = document.createElement("div");
@@ -167,12 +167,6 @@ document.addEventListener("DOMContentLoaded", () => {
       obstacle.style.left = obstacleLeft + "px";
       topObstacle.style.left = obstacleLeft + "px";
 
-      if (obstacleLeft === -200) {
-        clearInterval(timerId);
-        gameDisplay.removeChild(obstacle);
-        gameDisplay.removeChild(topObstacle);
-        updateScore();
-      }
       if (
         (obstacleLeft > 200 &&
           obstacleLeft < 280 &&
@@ -195,6 +189,15 @@ document.addEventListener("DOMContentLoaded", () => {
             bird.classList.remove("invincible");
           }, 2000);
         }
+      }
+      if (obstacleLeft === 220) {
+        // This condition checks when the obstacle is at the same position as the bird
+        updateScore();
+      }
+      if (obstacleLeft === -200) {
+        clearInterval(timerId);
+        gameDisplay.removeChild(obstacle);
+        gameDisplay.removeChild(topObstacle);
       }
     }
     if (!isGameOver) setTimeout(generateObstacle, 3000);
