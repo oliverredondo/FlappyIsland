@@ -308,3 +308,31 @@ body {
   font-size: 16px;
   cursor: pointer;
 }
+
+/* MEDIA QUERY */
+
+/* Desktop breakpoint / media queries */
+@media only screen and (max-width: 1024px) {
+  .container {
+    display: block;
+    width: 600px;
+    height: 768px;
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+  }
+
+  .text {
+    position: absolute;
+    z-index: 2;
+    font-size: 1rem;
+    left: 150px;
+    top: 15%;
+  }
+
+  .title {
+    font-size: 3rem;
+  }
+}
