@@ -320,7 +320,7 @@ body {
   transition: opacity 0.2s;
 }
 
-.inner-popup p {
+.pickup-line {
   font-size: 18px;
 }
 
@@ -342,3 +342,4 @@ body {
   transform: scale(0.97);
   background: #65d969;
 }
+
