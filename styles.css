@@ -272,16 +272,20 @@ body {
     background-position: 10000%;
   }
 }
-/*  Lives  */
+/*  Lives & Score Results  */
 
-#lives {
+.scorecontainer {
+  display: flex;
+  width: 100% !important;
+  height: 100%;
+  justify-content: space-around;
+  align-items: center;
   position: absolute;
-  top: 800px;
-  left: 200px;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: bold;
-  color: black;
+  z-index: 99;
 }
+
 
 /*  Game over popup  */
 
