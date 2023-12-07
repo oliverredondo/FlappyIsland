@@ -101,11 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("lives").innerText = "LIVES: " + lives;
   }
 
-  function decreaseLives() {
-    lives--;
-    updateLivesDisplay();
-  }
-
   // function displayPickupLine() {
   //   let line = getData();
   // }
@@ -117,10 +112,22 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Define startGame function
+  // function startGame() {
+  //   birdBottom -= gravity;
+  //   bird.style.bottom = birdBottom + "px";
+  //   bird.style.left = birdLeft + "px";
+  // }
+
   function startGame() {
-    birdBottom -= gravity;
-    bird.style.bottom = birdBottom + "px";
-    bird.style.left = birdLeft + "px";
+    if (birdBottom > 15) {
+      birdBottom -= gravity;
+      bird.style.bottom = birdBottom + "px";
+      bird.style.left = birdLeft + "px";
+    } else {
+      // Stop the bird from going below the ground level
+      birdBottom = 15;
+      bird.style.bottom = birdBottom + "px";
+    }
   }
 
   function control(e) {
@@ -208,6 +215,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
     if (!isGameOver) setTimeout(generateObstacle, 3000);
+  }
+
+  function decreaseLives() {
+    if (lives > 0) {
+      lives--;
+      updateLivesDisplay();
+    }
   }
 
   function lifeCheck() {
