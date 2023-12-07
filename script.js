@@ -1,3 +1,5 @@
+// import { getData } from "./api.js";
+
 function restartGame() {
   // Reload the page to restart the game
   location.reload();
@@ -104,9 +106,14 @@ document.addEventListener("DOMContentLoaded", () => {
     updateLivesDisplay();
   }
 
+  // function displayPickupLine() {
+  //   let line = getData();
+  // }
+
   function showGameOverPopup() {
     const popup = document.getElementById("gameOverPopup");
     popup.style.display = "block";
+    // displayPickupLine();
   }
 
   // Define startGame function

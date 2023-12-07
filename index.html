@@ -47,10 +47,14 @@
       </div>
     </div>
     <div class="popup" id="gameOverPopup">
-      GAME OVER
-      <br />
-      <button class="restart-button" onclick="restartGame()">Restart</button>
+      <div class="inner-popup">
+        <p class="pickup-line" id="pickupLine"></p>
+        <button class="restart-button" onclick="restartGame()">
+          Restart Game
+        </button>
+      </div>
     </div>
     <script src="script.js" charset="utf-8"></script>
+    <script src="api.js"></script>
   </body>
 </html>
