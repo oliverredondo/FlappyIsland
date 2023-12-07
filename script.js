@@ -14,6 +14,45 @@ document.addEventListener("DOMContentLoaded", () => {
   let collisionSound = document.getElementById("collisionSound");
   let spacebarSound = document.getElementById("spacebarSound");
   let okeyLetsGo = document.getElementById("okeyLetsGo");
+  let currentScore = document.querySelector("#currentScore");
+  let highestScore = document.querySelector("#highestScore");
+
+  // setting the local storage for the game
+  let score = 0;
+  let highScore = getHighscore();
+
+  currentScore.textContent = `Current Score: ${score}`;
+  highestScore.textContent = `Highest Score: ${highScore}`;
+
+  function updateScore() {
+    score++;
+    if (score > highScore) {
+      localStorage.setItem(
+        "flappyBirdData",
+        JSON.stringify({ score, highestScore: score })
+      );
+      setHighscore({
+        score: score,
+      });
+    }
+  }
+
+  function getHighscore() {
+    // Use the same key "flappyBirdData" consistently
+    const storedData = JSON.parse(localStorage.getItem("flappyBirdData")) || {
+      score: 0,
+      highestScore: 0,
+    };
+    return storedData.highestScore;
+  }
+
+  function setHighscore(highscore) {
+    // Use the same key "flappyBirdData" consistently
+    localStorage.setItem(
+      "flappyBirdData",
+      JSON.stringify({ score: highscore.score, highestScore: highscore.score })
+    );
+  }
 
   // How to randomize the obstacles. Array of CSS classes
   let classNamesTop = [
@@ -130,6 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
         clearInterval(timerId);
         gameDisplay.removeChild(obstacle);
         gameDisplay.removeChild(topObstacle);
+        updateScore();
       }
       if (
         (obstacleLeft > 200 &&
@@ -147,12 +187,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
           isInvincible = true;
           bird.classList.add("invincible");
-          
 
           setTimeout(function () {
             isInvincible = false;
             bird.classList.remove("invincible");
-          
           }, 2000);
         }
       }
@@ -168,29 +206,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  document.addEventListener("keydown", function(initGame) {
+  document.addEventListener("keydown", function (initGame) {
     if (e.keyCode === 32) {
       jump();
       spacebarSound.play();
     }
   });
 
+  // Function to handle the "S" key press and call initGame function
+  let allowInitGame = true;
 
-// Function to handle the "S" key press and call initGame function
-let allowInitGame = true; 
-
-function handleKeyPress(event) {
-  if (allowInitGame && event.key === "s" || event.key === "S") {
-    initGame(); // Call the initGame function when the "S" key is pressed
-    allowInitGame = false; // Disable further "S" key presses
-    text.style.opacity = 0;
-    okeyLetsGo.play();
+  function handleKeyPress(event) {
+    if ((allowInitGame && event.key === "s") || event.key === "S") {
+      initGame(); // Call the initGame function when the "S" key is pressed
+      allowInitGame = false; // Disable further "S" key presses
+      text.style.opacity = 0;
+      okeyLetsGo.play();
+    }
   }
-}
 
-// Add event listener for key press
-document.addEventListener("keydown", handleKeyPress);
-
+  // Add event listener for key press
+  document.addEventListener("keydown", handleKeyPress);
 
   function initGame() {
     birdBottom = 100;
@@ -201,9 +237,9 @@ document.addEventListener("keydown", handleKeyPress);
   }
 
   //Enable the function below if we remove the event listener to start the game
- // initGame();
- 
- // Game over
+  // initGame();
+
+  // Game over
 
   function gameOver() {
     // Clear all obstacle timers
