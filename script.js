@@ -1,16 +1,19 @@
 function restartGame() {
   // Reload the page to restart the game
   location.reload();
+  allowInitGame = true;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize DOM elements
   const bird = document.querySelector("#bird");
+  const text = document.querySelector(".text");
   const gameDisplay = document.querySelector(".game");
   const ground = document.querySelector(".ground-moving");
   const sky = document.querySelector(".sky-moving");
   let collisionSound = document.getElementById("collisionSound");
   let spacebarSound = document.getElementById("spacebarSound");
+  let okeyLetsGo = document.getElementById("okeyLetsGo");
 
   // How to randomize the obstacles. Array of CSS classes
   let classNamesTop = [
@@ -143,11 +146,13 @@ document.addEventListener("DOMContentLoaded", () => {
           collisionSound.play();
 
           isInvincible = true;
-          bird.style.opacity = 0.5;
+          bird.classList.add("invincible");
+          
 
           setTimeout(function () {
             isInvincible = false;
-            bird.style.opacity = 1;
+            bird.classList.remove("invincible");
+          
           }, 2000);
         }
       }
@@ -163,6 +168,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  document.addEventListener("keydown", function(initGame) {
+    if (e.keyCode === 32) {
+      jump();
+      spacebarSound.play();
+    }
+  });
+
+
+// Function to handle the "S" key press and call initGame function
+let allowInitGame = true; 
+
+function handleKeyPress(event) {
+  if (allowInitGame && event.key === "s" || event.key === "S") {
+    initGame(); // Call the initGame function when the "S" key is pressed
+    allowInitGame = false; // Disable further "S" key presses
+    text.style.opacity = 0;
+    okeyLetsGo.play();
+  }
+}
+
+// Add event listener for key press
+document.addEventListener("keydown", handleKeyPress);
+
+
   function initGame() {
     birdBottom = 100;
     bird.style.bottom = birdBottom + "px";
@@ -171,8 +200,10 @@ document.addEventListener("DOMContentLoaded", () => {
     generateObstacle();
   }
 
-  initGame();
-  // Game over
+  //Enable the function below if we remove the event listener to start the game
+ // initGame();
+ 
+ // Game over
 
   function gameOver() {
     // Clear all obstacle timers
