@@ -34,7 +34,9 @@ document.addEventListener("DOMContentLoaded", () => {
       setHighscore({
         score: score,
       });
+      highestScore.textContent = `Highest Score: ${score}`;
     }
+    currentScore.textContent = `Current Score: ${score}`;
   }
 
   function getHighscore() {
