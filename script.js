@@ -229,6 +229,15 @@ document.addEventListener("DOMContentLoaded", () => {
       // If no lives left, show game over popup
       showGameOverPopup();
       gameOver();
+
+      // Reset audio time and pause game sounds
+      collisionSound.currentTime = 0;
+      spacebarSound.currentTime = 0;
+
+      setTimeout(() => {
+        collisionSound.pause(); // Pause collision sound
+        spacebarSound.pause(); // Pause spacebar sound
+      }, 100); // Adjust the delay as needed
     }
   }
 
