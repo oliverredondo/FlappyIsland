@@ -24,8 +24,6 @@ let classNamesTop = [
   "topObstacleKnife",
   "topObstaclePipe",
   "topObstacleSalmon",
-  "topObstacleCookieWhite",
-  "topObstacleCookieBlack",
 ];
 let classNamesBottom = [
   "obstacleFork",
@@ -37,8 +35,6 @@ let classNamesBottom = [
   "obstacleEskilCool",
   "obstacleEskilBreak",
   "obstacleSmoke",
-  "obstacleCookieWhite",
-  "obstacleCookieBlack",
 ];
 
 // Event listener to initialize the game when the DOM is fully loaded

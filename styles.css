@@ -267,42 +267,6 @@ body {
   background-repeat: no-repeat;
 }
 
-/* Cookie jars */
-
-.obstacleCookieWhite {
-  background-image: url("./images/cookieJarWhite.png");
-  width: 77px;
-  height: 300px;
-  position: absolute;
-  background-repeat: no-repeat;
-}
-
-.topObstacleCookieWhite {
-  background-image: url("./images/cookieJarWhite.png");
-  transform: rotate(180deg);
-  width: 77px;
-  height: 300px;
-  position: absolute;
-  background-repeat: no-repeat;
-}
-
-.obstacleCookieBlack {
-  background-image: url("./images/cookieJarBlack.png");
-  width: 80px;
-  height: 300px;
-  position: absolute;
-  background-repeat: no-repeat;
-}
-
-.topObstacleCookieBlack {
-  background-image: url("./images/cookieJarBlack.png");
-  transform: rotate(180deg);
-  width: 80px;
-  height: 300px;
-  position: absolute;
-  background-repeat: no-repeat;
-}
-
 /* Make it move to the right */
 
 @keyframes slideright {
