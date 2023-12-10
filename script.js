@@ -33,6 +33,7 @@ let classNamesBottom = [
   "obstacleKhadija",
   "obstacleSalmon",
   "obstacleEskilCool",
+  "obstacleEskilBreak",
   "obstacleSmoke",
 ];
 
@@ -169,6 +170,35 @@ function handleKeyPress(e) {
     allowInitGame = false; // Disable further "S" key presses
     instructionTextEl.style.opacity = 0;
     okeyLetsGo.play();
+  }
+}
+
+// Function to change the avatar by pressing numbers 1 to 4
+function changeBird(event) {
+  if (event.key === "1") {
+    bird.classList.remove("hassan", "pikachu", "xmas");
+    bird.classList.add("bird");
+  }
+}
+
+function changeBirdHassan(event) {
+  if (event.key === "2") {
+    bird.classList.remove("bird", "pikachu", "xmas");
+    bird.classList.add("hassan");
+  }
+}
+
+function changeBirdPikachu(event) {
+  if (event.key === "3") {
+    bird.classList.remove("bird", "hassan", "xmas");
+    bird.classList.add("pikachu");
+  }
+}
+
+function changeBirdXmas(event) {
+  if (event.key === "4") {
+    bird.classList.remove("bird", "hassan", "pikachu");
+    bird.classList.add("xmas");
   }
 }
 
@@ -334,4 +364,8 @@ function setupEventListeners() {
 
   // Add event listener for key press
   document.addEventListener("keydown", handleKeyPress);
+  document.addEventListener("keydown", changeBird);
+  document.addEventListener("keydown", changeBirdHassan);
+  document.addEventListener("keydown", changeBirdPikachu);
+  document.addEventListener("keydown", changeBirdXmas);
 }
