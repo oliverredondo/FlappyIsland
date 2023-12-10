@@ -21,18 +21,17 @@
     </audio>
     <!-- The game -->
     <div class="container">
-      <div class="text">
+      <div class="text" id="instructionText">
         <audio id="okeyLetsGo">
           <source src="./audio/okeyletsgo.mp3" type="audio/mp3" />
           Your browser does not support the audio tag.
         </audio>
-        <span class="title">FLAPPY ISLAND</span> <br />
-        <br />
-        Press &lt;space&gt; to jump<br />
-        Press &lt;S&gt; to start the game
+        <p class="title">FLAPPY ISLAND</p>
+        <p>Press &lt;S&gt; to start the game</p>
+        <p>Press &lt;space&gt; to jump</p>
       </div>
-      <div class="game">
-        <div class="sky-moving">
+      <div class="game" id="gameDisplay">
+        <div class="sky-moving" id="movingSky">
           <div id="bird" class="bird"></div>
         </div>
 
@@ -42,7 +41,7 @@
             <p id="currentScore"></p>
             <p id="highestScore"></p>
           </div>
-          <div class="ground-moving"></div>
+          <div class="ground-moving" id="movingGround"></div>
         </div>
       </div>
     </div>

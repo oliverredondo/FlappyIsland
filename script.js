@@ -1,294 +1,337 @@
-// import { getData } from "./api.js";
+// Declaration of global variables for game elements and state
+let birdEl,
+  instructionTextEl,
+  gameDisplayEl,
+  groundEl,
+  skyEl,
+  currentScore,
+  highestScore;
+let score = 0;
+let highScore;
+let birdLeft = 220;
+let birdBottom = 100;
+let isInvincible = false;
+let gravity = 1;
+let isGameOver = false;
+let gap = 475;
+let lives = 3;
+let allowInitGame = true;
+let obstacleTimers = []; // Array to store timer IDs
 
+// Arrays containing CSS classes for obstacle elements
+let classNamesTop = [
+  "topObstacleFork",
+  "topObstacleKnife",
+  "topObstaclePipe",
+  "topObstacleSalmon",
+];
+let classNamesBottom = [
+  "obstacleFork",
+  "obstacleKnife",
+  "obstaclePipe",
+  "obstacleCoffee",
+  "obstacleKhadija",
+  "obstacleSalmon",
+  "obstacleEskilCool",
+  "obstacleSmoke",
+];
+
+// Event listener to initialize the game when the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+  // Assign DOM elements to variables
+  birdEl = document.querySelector("#bird");
+  instructionTextEl = document.querySelector("#instructionText");
+  gameDisplayEl = document.querySelector("#gameDisplay");
+  groundEl = document.querySelector("#movingGround");
+  skyEl = document.querySelector("#movingSky");
+  currentScore = document.querySelector("#currentScore");
+  highestScore = document.querySelector("#highestScore");
+
+  // Initialize game elements and set up event listeners
+  initializeGameElements(
+    gameDisplayEl,
+    groundEl,
+    skyEl,
+    currentScore,
+    highestScore
+  );
+  setupEventListeners();
+});
+
+// Function to update the player's score
+function updateScore() {
+  score++;
+  // Check if the current score surpasses the highest score
+  if (score > highScore) {
+    // Update local storage with the new highest score
+    localStorage.setItem(
+      "flappyBirdData",
+      JSON.stringify({ score, highestScore: score })
+    );
+    // Update the displayed highest score
+    setHighscore({
+      score: score,
+    });
+    highestScore.textContent = `Highest Score: ${score}`;
+  }
+  // Update the displayed current score
+  currentScore.textContent = `Current Score: ${score}`;
+}
+
+// Function to set and update the highest score in local storage
+function setHighscore(highscore) {
+  // Use the same key "flappyBirdData" consistently
+  localStorage.setItem(
+    "flappyBirdData",
+    JSON.stringify({ score: highscore.score, highestScore: highscore.score })
+  );
+}
+
+// Function to retrieve the highest score from local storage
+function getHighscore() {
+  // Use the same key "flappyBirdData" consistently
+  const storedData = JSON.parse(localStorage.getItem("flappyBirdData")) || {
+    score: 0,
+    highestScore: 0,
+  };
+  return storedData.highestScore;
+}
+
+// Function to initialize game elements and set initial scores
+function initializeGameElements() {
+  // Retrieve the highest score from local storage
+  highScore = getHighscore();
+
+  // Initialize the displayed scores
+  currentScore.textContent = `Current Score: ${score}`;
+  highestScore.textContent = `Highest Score: ${highScore}`;
+}
+
+// Function to get a random class for the top obstacle
+function getRandomTopObstacleClass(classNames) {
+  let randomIndexTop = Math.floor(Math.random() * classNamesTop.length);
+  return classNamesTop[randomIndexTop];
+}
+
+// Function to get a random class for the bottom obstacle
+function getRandomBottomObstacleClass(classNames) {
+  let randomIndexBottom = Math.floor(Math.random() * classNamesBottom.length);
+  return classNamesBottom[randomIndexBottom];
+}
+
+function updateLivesDisplay() {
+  document.getElementById("lives").innerText = "LIVES: " + lives;
+}
+
+// Function to display the game over popup
+function displayGameOverPopup() {
+  let popupEl = document.querySelector("#gameOverPopup");
+  popupEl.style.display = "block";
+}
+
+// Define startGame function
+function startGame() {
+  // Move the bird up if it's above the ground, else keep it at the ground level
+  if (birdBottom > 15) {
+    birdBottom -= gravity;
+    birdEl.style.bottom = birdBottom + "px";
+    birdEl.style.left = birdLeft + "px";
+  } else {
+    // Stop the bird from going below the ground level
+    birdBottom = 15;
+    birdEl.style.bottom = birdBottom + "px";
+  }
+}
+
+// Function to initiate the game and set up initial configurations
+function initiateGame() {
+  birdBottom = 100;
+  birdEl.style.bottom = birdBottom + "px";
+  isGameOver = false;
+  // Start the game loop and obstacle generation
+  gameTimerId = setInterval(startGame, 20);
+  generateObstacle();
+
+  // Initialize and play sounds
+  let collisionSound = document.querySelector("#collisionSound");
+  let spacebarSound = document.querySelector("#spacebarSound");
+  let okeyLetsGo = document.querySelector("#okeyLetsGo");
+
+  collisionSound.pause(); // Pause the collision sound initially
+  spacebarSound.pause(); // Pause the spacebar sound initially
+  okeyLetsGo.play(); // Play the start game sound
+}
+
+// Function to handle the "S" key press and call initiateGame function
+function handleKeyPress(e) {
+  if ((allowInitGame && e.key === "s") || e.key === "S") {
+    initiateGame(); // Call the initiateGame function when the "S" key is pressed
+    allowInitGame = false; // Disable further "S" key presses
+    instructionTextEl.style.opacity = 0;
+    okeyLetsGo.play();
+  }
+}
+
+// Function to execute a jump when the spacebar is pressed
+function executeJump() {
+  // Increase the bird's bottom position to simulate a jump
+  if (birdBottom < 500) birdBottom += 50;
+  birdEl.style.bottom = birdBottom + "px";
+  console.log(birdBottom);
+}
+
+// Function to handle user control (spacebar press for jump)
+function handleUserControl(e) {
+  if (e.keyCode === 32) {
+    executeJump();
+    spacebarSound.play();
+  }
+}
+
+// Function to decrease the count of remaining lives
+function decreaseLiveCount() {
+  if (lives > 0) {
+    lives--;
+    updateLivesDisplay();
+
+    // Play the collision sound only if lives are greater than 0
+    collisionSound.play();
+  }
+}
+
+// Function to check if the player has remaining lives
+function checkRemainingLives() {
+  if (lives <= 0) {
+    // If no lives left, show game over popup and end the game
+    displayGameOverPopup();
+    gameOver();
+
+    // Pause the collision sound when the game is over
+    collisionSound.pause();
+  }
+}
+
+// Function to generate new obstacles at intervals
+function generateObstacle() {
+  let obstacleLeft = 1200;
+
+  // Generate a random height for the obstacle
+  let randomHeight = Math.random() * 150;
+  let obstacleBottom = randomHeight;
+
+  // Create HTML elements for the obstacle and its top counterpart
+  let obstacle = document.createElement("div");
+  let topObstacle = document.createElement("div");
+
+  // Get random obstacle classes for styling
+  let randomClassTop = getRandomTopObstacleClass(classNamesTop);
+  let randomClassBottom = getRandomBottomObstacleClass(classNamesBottom);
+
+  // Add obstacle classes if the game is not over
+  if (!isGameOver) {
+    obstacle.classList.add(randomClassBottom);
+    topObstacle.classList.add(randomClassTop);
+  }
+
+  // Append obstacles to the game display
+  gameDisplayEl.appendChild(obstacle);
+  gameDisplayEl.appendChild(topObstacle);
+
+  // Set initial positions for the obstacles
+  obstacle.style.left = obstacleLeft + "px";
+  topObstacle.style.left = obstacleLeft + "px";
+  obstacle.style.bottom = obstacleBottom + "px";
+  topObstacle.style.bottom = obstacleBottom + gap + "px";
+
+  // Set up a timer to move the obstacles
+  let timerId = setInterval(moveObstacle, 20);
+
+  // Push the timerId into the array for later cleanup
+  obstacleTimers.push(timerId);
+
+  // Function to move the obstacles
+  function moveObstacle() {
+    // Move the obstacles to the left
+    obstacleLeft -= 2;
+    obstacle.style.left = obstacleLeft + "px";
+    topObstacle.style.left = obstacleLeft + "px";
+
+    // Check for collision with the bird or reaching top/bottom
+    if (
+      (obstacleLeft > 200 &&
+        obstacleLeft < 280 &&
+        birdLeft === 220 &&
+        (birdBottom < obstacleBottom + 153 ||
+          birdBottom > obstacleBottom + gap - 200)) ||
+      birdBottom === 18
+    ) {
+      // Handle collision events
+      if (!isInvincible) {
+        console.log("collision", birdBottom);
+        decreaseLiveCount();
+        checkRemainingLives();
+        collisionSound.play();
+
+        // Make the bird temporarily invincible after a collision
+        isInvincible = true;
+        birdEl.classList.add("invincible");
+
+        // Remove invincibility after a delay
+        setTimeout(function () {
+          isInvincible = false;
+          birdEl.classList.remove("invincible");
+        }, 2000);
+      }
+    }
+    // Check if the obstacle is at the same position as the bird
+    if (obstacleLeft === 220) {
+      updateScore();
+    }
+
+    // Check if the obstacle has moved off the screen
+    if (obstacleLeft === -200) {
+      // Remove obstacles and clear the timer
+      clearInterval(timerId);
+      gameDisplayEl.removeChild(obstacle);
+      gameDisplayEl.removeChild(topObstacle);
+    }
+  }
+  // Schedule the next obstacle generation if the game is not over
+  if (!isGameOver) setTimeout(generateObstacle, 3000);
+}
+
+// Function to handle game over conditions
+function gameOver() {
+  // Clear all obstacle timers
+  obstacleTimers.forEach((timerId) => {
+    clearInterval(timerId);
+  });
+  // Clear the game loop timer
+  clearInterval(gameTimerId);
+  console.log("Game over");
+  isGameOver = true;
+
+  // Remove key event listener for user control
+  document.removeEventListener("keyup", handleUserControl);
+
+  // Update CSS classes for ground and sky to indicate the game over state
+  groundEl.classList.add("ground");
+  groundEl.classList.remove("ground-moving");
+  skyEl.classList.add("sky");
+  skyEl.classList.remove("sky-moving");
+}
+
+// Function to restart the game by reloading the page
 function restartGame() {
-  // Reload the page to restart the game
   location.reload();
   allowInitGame = true;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Initialize DOM elements
-  const bird = document.querySelector("#bird");
-  const text = document.querySelector(".text");
-  const gameDisplay = document.querySelector(".game");
-  const ground = document.querySelector(".ground-moving");
-  const sky = document.querySelector(".sky-moving");
-  let collisionSound = document.getElementById("collisionSound");
-  let spacebarSound = document.getElementById("spacebarSound");
-  let okeyLetsGo = document.getElementById("okeyLetsGo");
-  let currentScore = document.querySelector("#currentScore");
-  let highestScore = document.querySelector("#highestScore");
-
-  // setting the local storage for the game
-  let score = 0;
-  let highScore = getHighscore();
-
-  currentScore.textContent = `Current Score: ${score}`;
-  highestScore.textContent = `Highest Score: ${highScore}`;
-
-  function updateScore() {
-    score++;
-    if (score > highScore) {
-      localStorage.setItem(
-        "flappyBirdData",
-        JSON.stringify({ score, highestScore: score })
-      );
-      setHighscore({
-        score: score,
-      });
-      highestScore.textContent = `Highest Score: ${score}`;
-    }
-    currentScore.textContent = `Current Score: ${score}`;
-  }
-
-  function getHighscore() {
-    // Use the same key "flappyBirdData" consistently
-    const storedData = JSON.parse(localStorage.getItem("flappyBirdData")) || {
-      score: 0,
-      highestScore: 0,
-    };
-    return storedData.highestScore;
-  }
-
-  function setHighscore(highscore) {
-    // Use the same key "flappyBirdData" consistently
-    localStorage.setItem(
-      "flappyBirdData",
-      JSON.stringify({ score: highscore.score, highestScore: highscore.score })
-    );
-  }
-
-  // How to randomize the obstacles. Array of CSS classes
-  let classNamesTop = [
-    "topObstacleFork",
-    "topObstacleKnife",
-    "topObstaclePipe",
-    "topObstacleSalmon",
-  ];
-  let classNamesBottom = [
-    "obstacleFork",
-    "obstacleKnife",
-    "obstaclePipe",
-    "obstacleCoffee",
-    "obstacleKhadija",
-    "obstacleSalmon",
-    "obstacleEskilCool",
-    "obstacleSmoke",
-  ];
-
-  function getRandomClassTop(classNames) {
-    const randomIndexTop = Math.floor(Math.random() * classNamesTop.length);
-    return classNamesTop[randomIndexTop];
-  }
-
-  function getRandomClassBottom(classNames) {
-    const randomIndexBottom = Math.floor(
-      Math.random() * classNamesBottom.length
-    );
-    return classNamesBottom[randomIndexBottom];
-  }
-
-  // Global variable declarations
-  let birdLeft = 220;
-  let birdBottom = 100;
-  let isInvincible = false;
-  let gravity = 1;
-  let isGameOver = false;
-  let gap = 475;
-  let lives = 3;
-
-  function updateLivesDisplay() {
-    document.getElementById("lives").innerText = "LIVES: " + lives;
-  }
-
-  // function displayPickupLine() {
-  //   let line = getData();
-  // }
-
-  function showGameOverPopup() {
-    const popup = document.getElementById("gameOverPopup");
-    popup.style.display = "block";
-    // displayPickupLine();
-  }
-
-  // Define startGame function
-  // function startGame() {
-  //   birdBottom -= gravity;
-  //   bird.style.bottom = birdBottom + "px";
-  //   bird.style.left = birdLeft + "px";
-  // }
-
-  function startGame() {
-    if (birdBottom > 15) {
-      birdBottom -= gravity;
-      bird.style.bottom = birdBottom + "px";
-      bird.style.left = birdLeft + "px";
-    } else {
-      // Stop the bird from going below the ground level
-      birdBottom = 15;
-      bird.style.bottom = birdBottom + "px";
-    }
-  }
-
-  function control(e) {
-    if (e.keyCode === 32) {
-      jump();
-      spacebarSound.play();
-    }
-  }
-
-  function jump() {
-    if (birdBottom < 500) birdBottom += 50;
-    bird.style.bottom = birdBottom + "px";
-    console.log(birdBottom);
-  }
-
-  document.addEventListener("keyup", control);
-
-  // Array to store timer IDs
-  let obstacleTimers = [];
-
-  // Generating new obstacles
-
-  function generateObstacle() {
-    let obstacleLeft = 1200;
-    let randomHeight = Math.random() * 150;
-    let obstacleBottom = randomHeight;
-    const obstacle = document.createElement("div");
-    const topObstacle = document.createElement("div");
-    const randomClassTop = getRandomClassTop(classNamesTop);
-    const randomClassBottom = getRandomClassBottom(classNamesBottom);
-    if (!isGameOver) {
-      obstacle.classList.add(randomClassBottom);
-      topObstacle.classList.add(randomClassTop);
-    }
-    gameDisplay.appendChild(obstacle);
-    gameDisplay.appendChild(topObstacle);
-    obstacle.style.left = obstacleLeft + "px";
-    topObstacle.style.left = obstacleLeft + "px";
-    obstacle.style.bottom = obstacleBottom + "px";
-    topObstacle.style.bottom = obstacleBottom + gap + "px";
-
-    let timerId = setInterval(moveObstacle, 20);
-
-    // Push the timerId into the array
-    obstacleTimers.push(timerId);
-
-    // Moving the obstacles
-
-    function moveObstacle() {
-      obstacleLeft -= 2;
-      obstacle.style.left = obstacleLeft + "px";
-      topObstacle.style.left = obstacleLeft + "px";
-
-      if (
-        (obstacleLeft > 200 &&
-          obstacleLeft < 280 &&
-          birdLeft === 220 &&
-          (birdBottom < obstacleBottom + 153 ||
-            birdBottom > obstacleBottom + gap - 200)) ||
-        birdBottom === 18
-      ) {
-        if (!isInvincible) {
-          console.log("collision", birdBottom);
-          decreaseLives();
-          lifeCheck();
-          collisionSound.play();
-
-          isInvincible = true;
-          bird.classList.add("invincible");
-
-          setTimeout(function () {
-            isInvincible = false;
-            bird.classList.remove("invincible");
-          }, 2000);
-        }
-      }
-      if (obstacleLeft === 220) {
-        // This condition checks when the obstacle is at the same position as the bird
-        updateScore();
-      }
-      if (obstacleLeft === -200) {
-        clearInterval(timerId);
-        gameDisplay.removeChild(obstacle);
-        gameDisplay.removeChild(topObstacle);
-      }
-    }
-    if (!isGameOver) setTimeout(generateObstacle, 3000);
-  }
-
-  function decreaseLives() {
-    if (lives > 0) {
-      lives--;
-      updateLivesDisplay();
-    }
-  }
-
-  function lifeCheck() {
-    if (lives <= 0) {
-      // If no lives left, show game over popup
-      showGameOverPopup();
-      gameOver();
-
-      // Reset audio time and pause game sounds
-      collisionSound.currentTime = 0;
-      spacebarSound.currentTime = 0;
-
-      setTimeout(() => {
-        collisionSound.pause(); // Pause collision sound
-        spacebarSound.pause(); // Pause spacebar sound
-      }, 100); // Adjust the delay as needed
-    }
-  }
-
-  document.addEventListener("keydown", function (initGame) {
-    if (e.keyCode === 32) {
-      jump();
-      spacebarSound.play();
-    }
-  });
-
-  // Function to handle the "S" key press and call initGame function
-  let allowInitGame = true;
-
-  function handleKeyPress(event) {
-    if ((allowInitGame && event.key === "s") || event.key === "S") {
-      initGame(); // Call the initGame function when the "S" key is pressed
-      allowInitGame = false; // Disable further "S" key presses
-      text.style.opacity = 0;
-      okeyLetsGo.play();
-    }
-  }
+// Function to set up event listeners for user input
+function setupEventListeners() {
+  // Add event listener for key release
+  document.addEventListener("keyup", handleUserControl);
 
   // Add event listener for key press
   document.addEventListener("keydown", handleKeyPress);
-
-  function initGame() {
-    birdBottom = 100;
-    bird.style.bottom = birdBottom + "px";
-    isGameOver = false;
-    gameTimerId = setInterval(startGame, 20);
-    generateObstacle();
-  }
-
-  //Enable the function below if we remove the event listener to start the game
-  // initGame();
-
-  // Game over
-
-  function gameOver() {
-    // Clear all obstacle timers
-    obstacleTimers.forEach((timerId) => {
-      clearInterval(timerId);
-    });
-
-    clearInterval(gameTimerId);
-    console.log("Game over");
-    isGameOver = true;
-    document.removeEventListener("keyup", control);
-    ground.classList.add("ground");
-    ground.classList.remove("ground-moving");
-    sky.classList.add("sky");
-    sky.classList.remove("sky-moving");
-  }
-});
+}
