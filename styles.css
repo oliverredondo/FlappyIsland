@@ -115,6 +115,33 @@ body {
   bottom: 100px;
 }
 
+.hassan {
+  background-image: url("./images/hassan.png");
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  left: 220px;
+  bottom: 100px;
+}
+
+.pikachu {
+  background-image: url("./images/pikachu.gif");
+  position: absolute;
+  width: 62px;
+  height: 38px;
+  left: 220px;
+  bottom: 100px;
+}
+
+.xmas {
+  background-image: url("./images/xmas.gif");
+  position: absolute;
+  width: 60px;
+  height: 46px;
+  left: 220px;
+  bottom: 100px;
+}
+
 .invincible {
   opacity: 0.5;
   transform: scale(1.2);
@@ -190,6 +217,13 @@ body {
   position: absolute;
 }
 
+.obstacleEskilBreak {
+  background-image: url("./images/eskilBreak.gif");
+  width: 120px;
+  height: 300px;
+  position: absolute;
+}
+
 .obstacleSmoke {
   background-image: url("./images/smoke.png");
   width: 122px;
@@ -228,6 +262,42 @@ body {
   background-image: url("./images/salmon.png");
   transform: rotate(180deg);
   width: 60px;
+  height: 300px;
+  position: absolute;
+  background-repeat: no-repeat;
+}
+
+/* Cookie jars */
+
+.obstacleCookieWhite {
+  background-image: url("./images/cookieJarWhite.png");
+  width: 77px;
+  height: 300px;
+  position: absolute;
+  background-repeat: no-repeat;
+}
+
+.topObstacleCookieWhite {
+  background-image: url("./images/cookieJarWhite.png");
+  transform: rotate(180deg);
+  width: 77px;
+  height: 300px;
+  position: absolute;
+  background-repeat: no-repeat;
+}
+
+.obstacleCookieBlack {
+  background-image: url("./images/cookieJarBlack.png");
+  width: 80px;
+  height: 300px;
+  position: absolute;
+  background-repeat: no-repeat;
+}
+
+.topObstacleCookieBlack {
+  background-image: url("./images/cookieJarBlack.png");
+  transform: rotate(180deg);
+  width: 80px;
   height: 300px;
   position: absolute;
   background-repeat: no-repeat;
@@ -286,7 +356,6 @@ body {
   z-index: 99;
 }
 
-
 /*  Game over popup  */
 
 .popup {
@@ -307,7 +376,7 @@ body {
   position: fixed;
   top: 50%;
   left: 50%;
-  z-index: 999; 
+  z-index: 999;
   max-width: 600px;
   min-width: 400px;
   padding: 2rem;
@@ -342,4 +411,3 @@ body {
   transform: scale(0.97);
   background: #65d969;
 }
-
