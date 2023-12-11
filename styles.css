@@ -205,14 +205,14 @@ body {
 
 .obstacleKhadija {
   background-image: url("./images/khadija.png");
-  width: 200px;
+  width: 116px;
   height: 300px;
   position: absolute;
 }
 
 .obstacleEskilCool {
   background-image: url("./images/eskilCool.png");
-  width: 190px;
+  width: 120px;
   height: 300px;
   position: absolute;
 }
