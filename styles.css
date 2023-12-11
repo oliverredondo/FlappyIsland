@@ -19,6 +19,7 @@ body {
 
 .title {
   font-size: 5rem;
+  margin-bottom: 20px;
   /* Fallback: Set a background color. */
   background-color: salmon;
 
@@ -41,8 +42,8 @@ body {
   position: absolute;
   z-index: 2;
   font-size: 2rem;
-  left: 220px;
-  top: 5%;
+  left: 160px;
+  /* top: 5%; */
 }
 
 .game {
@@ -142,14 +143,25 @@ body {
 }
 
 .avatar-box {
+  display: flex;
+  justify-content: space-around;
+  margin-top: -20px;
+  margin-bottom: -10px;
   background-color: white;
   border-radius: 20px;
+  padding: 5px;
 }
 
 .avatar {
   display: inline-block;
   height: 1.5rem;
   width: auto;
+}
+
+.vertical-line {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+  color: #505050;
 }
 
 .invincible {
