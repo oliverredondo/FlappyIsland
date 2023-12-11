@@ -181,32 +181,32 @@ function handleKeyPress(e) {
 }
 
 // Function to change the avatar by pressing numbers 1 to 4
-function changeBird(event) {
-  if (event.key === "1") {
+function changeBird(e) {
+  if (e.key === "1") {
     bird.classList.remove("hassan", "pikachu", "nyan");
     bird.classList.add("bird");
     birdSound.play();
   }
 }
 
-function changeBirdHassan(event) {
-  if (event.key === "2") {
+function changeBirdHassan(e) {
+  if (e.key === "2") {
     bird.classList.remove("bird", "pikachu", "nyan");
     bird.classList.add("hassan");
     hassanSound.play();
   }
 }
 
-function changeBirdPikachu(event) {
-  if (event.key === "3") {
+function changeBirdPikachu(e) {
+  if (e.key === "3") {
     bird.classList.remove("bird", "hassan", "nyan");
     bird.classList.add("pikachu");
     pikachuSound.play();
   }
 }
 
-function changeBirdNyan(event) {
-  if (event.key === "4") {
+function changeBirdNyan(e) {
+  if (e.key === "4") {
     bird.classList.remove("bird", "hassan", "pikachu");
     bird.classList.add("nyan");
     nyanSound.play();
@@ -223,7 +223,7 @@ function executeJump() {
 
 // Function to handle user control (spacebar press for jump)
 function handleUserControl(e) {
-  if (e.keyCode === 32) {
+  if (e.key === " ") {
     executeJump();
     spacebarSound.play();
   }
