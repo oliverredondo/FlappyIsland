@@ -1,4 +1,3 @@
-// Declaration of global variables for game elements and state
 let birdEl,
   instructionTextEl,
   gameDisplayEl,
@@ -176,33 +175,29 @@ function handleKeyPress(e) {
 // Function to change the avatar by pressing numbers 1 to 4
 function changeBird(event) {
   if (event.key === "1") {
-    bird.classList.remove("hassan", "pikachu", "nyan");
+    bird.classList.remove("hassan", "pikachu", "xmas");
     bird.classList.add("bird");
-    birdSound.play();
   }
 }
 
 function changeBirdHassan(event) {
   if (event.key === "2") {
-    bird.classList.remove("bird", "pikachu", "nyan");
+    bird.classList.remove("bird", "pikachu", "xmas");
     bird.classList.add("hassan");
-    hassanSound.play();
   }
 }
 
 function changeBirdPikachu(event) {
   if (event.key === "3") {
-    bird.classList.remove("bird", "hassan", "nyan");
+    bird.classList.remove("bird", "hassan", "xmas");
     bird.classList.add("pikachu");
-    pikachuSound.play();
   }
 }
 
-function changeBirdNyan(event) {
+function changeBirdXmas(event) {
   if (event.key === "4") {
     bird.classList.remove("bird", "hassan", "pikachu");
-    bird.classList.add("nyan");
-    nyanSound.play();
+    bird.classList.add("xmas");
   }
 }
 
@@ -348,19 +343,52 @@ function gameOver() {
   // Remove key event listener for user control
   document.removeEventListener("keyup", handleUserControl);
 
+  // Remove the "S" key event listener
+  document.removeEventListener("keydown", handleKeyPress);
   // Update CSS classes for ground and sky to indicate the game over state
   groundEl.classList.add("ground");
   groundEl.classList.remove("ground-moving");
   skyEl.classList.add("sky");
   skyEl.classList.remove("sky-moving");
 }
+function handleEnterPress(e) {
+  // Check if the game is over and the Enter key is pressed
+  if (isGameOver && (e.key === "Enter" || e.key === "Enter")) {
+    restartGame();
+  }
+}
+
+// Remove key event listener for user control
+document.removeEventListener("keyup", handleUserControl);
+
+// Update CSS classes for ground and sky to indicate the game over state
+groundEl.classList.add("ground");
+groundEl.classList.remove("ground-moving");
+skyEl.classList.add("sky");
+skyEl.classList.remove("sky-moving");
 
 // Function to restart the game by reloading the page
 function restartGame() {
   location.reload();
   allowInitGame = true;
+} // Clear all obstacle timers
+obstacleTimers.forEach((timerId) => {
+  clearInterval(timerId);
+  // Reset game state variables
+  isGameOver = false;
+  score = 0;
+  lives = 3;
+  birdEl.classList.remove("invincible");
+  updateLivesDisplay();
+  updateScore();
+  initiateGame();
+});
+// Function to handle the Enter key press and restart the game
+function handleEnterPress(e) {
+  if (isGameOver && (e.key === "Enter" || e.code === "Enter")) {
+    restartGame();
+  }
 }
-
 // Function to set up event listeners for user input
 function setupEventListeners() {
   // Add event listener for key release
@@ -371,5 +399,6 @@ function setupEventListeners() {
   document.addEventListener("keydown", changeBird);
   document.addEventListener("keydown", changeBirdHassan);
   document.addEventListener("keydown", changeBirdPikachu);
-  document.addEventListener("keydown", changeBirdNyan);
+  document.addEventListener("keydown", changeBirdXmas);
+  document.addEventListener("keydown", handleEnterPress);
 }
