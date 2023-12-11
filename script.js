@@ -193,7 +193,7 @@ function changeBirdHassan(e) {
   if (e.key === "2") {
     bird.classList.remove("bird", "pikachu", "nyan");
     bird.classList.add("hassan");
-    hassanSound.play();
+    // hassanSound.play();
   }
 }
 
