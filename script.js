@@ -176,29 +176,33 @@ function handleKeyPress(e) {
 // Function to change the avatar by pressing numbers 1 to 4
 function changeBird(event) {
   if (event.key === "1") {
-    bird.classList.remove("hassan", "pikachu", "xmas");
+    bird.classList.remove("hassan", "pikachu", "nyan");
     bird.classList.add("bird");
+    birdSound.play();
   }
 }
 
 function changeBirdHassan(event) {
   if (event.key === "2") {
-    bird.classList.remove("bird", "pikachu", "xmas");
+    bird.classList.remove("bird", "pikachu", "nyan");
     bird.classList.add("hassan");
+    hassanSound.play();
   }
 }
 
 function changeBirdPikachu(event) {
   if (event.key === "3") {
-    bird.classList.remove("bird", "hassan", "xmas");
+    bird.classList.remove("bird", "hassan", "nyan");
     bird.classList.add("pikachu");
+    pikachuSound.play();
   }
 }
 
-function changeBirdXmas(event) {
+function changeBirdNyan(event) {
   if (event.key === "4") {
     bird.classList.remove("bird", "hassan", "pikachu");
-    bird.classList.add("xmas");
+    bird.classList.add("nyan");
+    nyanSound.play();
   }
 }
 
@@ -367,5 +371,5 @@ function setupEventListeners() {
   document.addEventListener("keydown", changeBird);
   document.addEventListener("keydown", changeBirdHassan);
   document.addEventListener("keydown", changeBirdPikachu);
-  document.addEventListener("keydown", changeBirdXmas);
+  document.addEventListener("keydown", changeBirdNyan);
 }

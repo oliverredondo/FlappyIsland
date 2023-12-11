@@ -35,7 +35,6 @@ body {
   -webkit-text-fill-color: transparent;
   -moz-background-clip: text;
   -moz-text-fill-color: transparent;
-  /* text-shadow: 5px 2px 2px salmon; */
 }
 
 .text {
@@ -133,13 +132,24 @@ body {
   bottom: 100px;
 }
 
-.xmas {
-  background-image: url("./images/xmas.gif");
+.nyan {
+  background-image: url("./images/nyan.gif");
   position: absolute;
   width: 60px;
   height: 46px;
   left: 220px;
   bottom: 100px;
+}
+
+.avatar-box {
+  background-color: white;
+  border-radius: 20px;
+}
+
+.avatar {
+  display: inline-block;
+  height: 1.5rem;
+  width: auto;
 }
 
 .invincible {
@@ -225,7 +235,7 @@ body {
 }
 
 .obstacleSmoke {
-  background-image: url("./images/smoke.png");
+  background-image: url("./images/smoke.gif");
   width: 122px;
   height: 300px;
   position: absolute;
