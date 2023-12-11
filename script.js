@@ -128,6 +128,13 @@ function updateLivesDisplay() {
 function displayGameOverPopup() {
   let popupEl = document.querySelector("#gameOverPopup");
   popupEl.style.display = "block";
+
+  window.addEventListener("keydown", (e) => {
+    // console.log(e);
+    if (e.key === "Enter") {
+      restartGame();
+    }
+  });
 }
 
 // Define startGame function
