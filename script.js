@@ -180,34 +180,26 @@ function handleKeyPress(e) {
   }
 }
 
-// Function to change the avatar by pressing numbers 1 to 4
+// Function to change the avatar by pressing numbers 1 to 3
 function changeBird(e) {
   if (e.key === "1") {
-    bird.classList.remove("hassan", "pikachu", "nyan");
+    bird.classList.remove("pikachu", "nyan");
     bird.classList.add("bird");
     birdSound.play();
   }
 }
 
-function changeBirdHassan(e) {
-  if (e.key === "2") {
-    bird.classList.remove("bird", "pikachu", "nyan");
-    bird.classList.add("hassan");
-    // hassanSound.play();
-  }
-}
-
 function changeBirdPikachu(e) {
-  if (e.key === "3") {
-    bird.classList.remove("bird", "hassan", "nyan");
+  if (e.key === "2") {
+    bird.classList.remove("bird", "nyan");
     bird.classList.add("pikachu");
     pikachuSound.play();
   }
 }
 
 function changeBirdNyan(e) {
-  if (e.key === "4") {
-    bird.classList.remove("bird", "hassan", "pikachu");
+  if (e.key === "3") {
+    bird.classList.remove("bird", "pikachu");
     bird.classList.add("nyan");
     nyanSound.play();
   }
@@ -376,7 +368,6 @@ function setupEventListeners() {
   // Add event listener for key press
   document.addEventListener("keydown", handleKeyPress);
   document.addEventListener("keydown", changeBird);
-  document.addEventListener("keydown", changeBirdHassan);
   document.addEventListener("keydown", changeBirdPikachu);
   document.addEventListener("keydown", changeBirdNyan);
 }
