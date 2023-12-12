@@ -22,7 +22,7 @@ This repository contains the collaborative effort of Petra, Oliver, and Hassen t
 
 1. **Initiate the game by pressing the (S) key.**
 2. **Make the bird ascend by pressing the (Space) key.**
-3. **AEarn points by successfully navigating past each pair of obstacles; each successful passage awards 1 point.**
+3. **Earn points by successfully navigating past each pair of obstacles; each successful passage awards 1 point.**
 4. **You have a total of 3 rounds to test your skills and achieve the highest score.**
 5. **Upon losing the game, a playful popup will appear on the screen, accompanied by a nerdy pickup line.**
 6. **The popup features a convenient button to swiftly restart the game and embark on a new round of excitement.**
