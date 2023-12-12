@@ -1,6 +1,6 @@
 # Flappy Bird Game Project
 
-![Flappy Bird](./images/screenshot.png)
+![Flappy Bird](./images/Flappy%20Island.png)
 
 ## Overview
 
