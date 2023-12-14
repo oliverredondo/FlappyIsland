@@ -19,27 +19,26 @@
       <source src="./audio/mixkit-game-ball-tap-2073.wav" type="audio/mp3" />
       Your browser does not support the audio tag.
     </audio>
+    <audio id="okeyLetsGo">
+      <source src="./audio/okeyletsgo.mp3" type="audio/mp3" />
+      Your browser does not support the audio tag.
+    </audio>
+    <audio id="birdSound">
+      <source src="./audio/birdchirp.mp3" type="audio/mp3" />
+      Your browser does not support the audio tag.
+    </audio>
+    <audio id="pikachuSound">
+      <source src="./audio/pikachu.mp3" type="audio/mp3" />
+      Your browser does not support the audio tag.
+    </audio>
+    <audio id="nyanSound">
+      <source src="./audio/nyan.mp3" type="audio/mp3" />
+      Your browser does not support the audio tag.
+    </audio>
     <!-- The game -->
     <div class="container">
       <div class="text" id="instructionText">
-        <audio id="okeyLetsGo">
-          <source src="./audio/okeyletsgo.mp3" type="audio/mp3" />
-          Your browser does not support the audio tag.
-        </audio>
-        <audio id="birdSound">
-          <source src="./audio/birdchirp.mp3" type="audio/mp3" />
-          Your browser does not support the audio tag.
-        </audio>
-        <audio id="pikachuSound">
-          <source src="./audio/pikachu.mp3" type="audio/mp3" />
-          Your browser does not support the audio tag.
-        </audio>
-        <audio id="nyanSound">
-          <source src="./audio/nyan.mp3" type="audio/mp3" />
-          Your browser does not support the audio tag.
-        </audio>
         <p class="title">FLAPPY ISLAND</p>
-
         <p>Press Player Number:</p>
         <div class="avatar-box">
           <span>1 - <img src="./images/bird1.png" class="avatar" /></span>
@@ -60,8 +59,8 @@
         </div>
 
         <div class="ground-container">
-          <div class="scorecontainer">
-            <p id="lives">LIVES: 3</p>
+          <div class="score-container">
+            <p id="lives">Lives: 3</p>
             <p id="currentScore"></p>
             <p id="highestScore"></p>
           </div>
@@ -73,10 +72,7 @@
       <div class="inner-popup">
         <p class="pickup-line">Game Over but</p>
         <p class="pickup-line" id="pickupLine"></p>
-        <p>PRESS <b>ENTER</b> TO RESTART THE GAME!</p>
-        <!-- <button class="restart-button" onclick="restartGame()">
-          Restart Game
-        </button> -->
+        <p>Press <b>enter</b> to restart the game!</p>
       </div>
     </div>
     <script src="script.js" charset="utf-8"></script>

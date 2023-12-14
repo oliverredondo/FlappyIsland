@@ -12,7 +12,6 @@ async function getData() {
     const response = await fetch(url, options);
     const result = await response.json();
     let pickupLine = result.random_pickup_line;
-    // console.log(pickupLine);
 
     let pickupLineEl = document.querySelector("#pickupLine");
     pickupLineEl.textContent = pickupLine;

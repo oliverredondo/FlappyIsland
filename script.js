@@ -1,3 +1,4 @@
+"use strict";
 // Declaration of global variables for game elements and state
 let birdEl,
   instructionTextEl,
@@ -5,7 +6,9 @@ let birdEl,
   groundEl,
   skyEl,
   currentScore,
-  highestScore;
+  highestScore,
+  gameTimerId;
+
 let score = 0;
 let highScore;
 let birdLeft = 220;

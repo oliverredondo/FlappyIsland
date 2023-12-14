@@ -330,7 +330,7 @@ body {
 }
 /*  Lives & Score Results  */
 
-.scorecontainer {
+.score-container {
   display: flex;
   width: 100% !important;
   height: 100%;
